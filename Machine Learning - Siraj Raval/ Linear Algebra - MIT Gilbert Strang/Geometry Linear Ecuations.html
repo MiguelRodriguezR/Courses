@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    }
+  </style>
+  <script type="text/javascript">
+    function test() {
+      matrixElement = document.getElementById("matrix");
+      x1 = document.getElementById("x1").value==""?0:document.getElementById("x1").value;
+      x2 = document.getElementById("x2").value==""?0:document.getElementById("x2").value;
+      y1 = document.getElementById("y1").value==""?0:document.getElementById("y1").value;
+      y2 = document.getElementById("y2").value==""?0:document.getElementById("y2").value;
+      a = document.getElementById("a").value==""?0:document.getElementById("a").value;
+      b = document.getElementById("b").value==""?0:document.getElementById("b").value;
+      var matrix="<h2>MATRIX</h2>"+
+      "<table>"+
+        "<tr><td>"+x1+"</td><td>"+y1+"</td><td>"+a+"</td></tr>"+
+        "<tr><td>"+x2+"</td><td>"+y2+"</td><td>"+b+"</td></tr>"+
+      "</table>";
+      matrixElement.innerHTML=matrix;
+
+      var c = document.getElementById("canvas");
+      var ctx = c.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+        ctx.translate(150,150)
+        ctx.moveTo(-150,0);
+          ctx.fillText('x=-150', -150, 0);
+          ctx.lineTo(150,0);
+
+        ctx.moveTo(0,-150);
+          ctx.fillText('y=150', 0, -140);
+          ctx.lineTo(0,150);
+
+        ctx.moveTo(0,0)
+          for(x=-150;x<150;x++){
+            ctx.fillRect( x,((a/y1)-(x*x1/y1)), 1, 1 );
+            ctx.fillRect( x,((b/y2)-(x*x2/y2)), 1, 1 );
+          }
+
+        ctx.stroke();
+      ctx.restore();
+    }
+  </script>
+  <title>Geometry Linear Ecuations</title>
+</head>
+<body>
+  <h2> The Linear ecuation 2x2 will be:</h2>
+  <p>
+    <input type="number" id="x1" min="-10" max="10">X+
+    <input type="number" id="y1" min="-10" max="10">Y=
+    <input type="number" id="a" min="0" max="100">
+  </p>
+  <p>
+    <input type="number" id="x2" min="-10" max="10">X+
+    <input type="number" id="y2" min="-10" max="10">Y=
+    <input type="number" id="b" min="0" max="100">
+  </p>
+
+  <button type="button" name="button" onclick="test()">Test</button>
+  <div id="matrix"></div>
+  <h2>Graph</h2>
+  <canvas id="canvas" width="300" height="300" style="border:1px solid #000000;"></canvas>
+
+</body>
+
+</html>
