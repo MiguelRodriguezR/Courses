@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    table, th, td {
+    border: 1px solid black;
+    }
+  </style>
+  <script src="Matrix.js"></script>
+  <script type="text/javascript">
+    function getMatrices(){
+      cols1 = document.getElementById("cols1").value;
+      cols2 = document.getElementById("cols2").value;
+      rows1 = document.getElementById("rows1").value;
+      rows2 = document.getElementById("rows2").value;
+      divM = document.getElementById("matrices");
+      //console.log(cols1)
+      if(cols1 == rows2){
+        var result="<h1>Matrix 1</h1><table>";
+        for(var x=0;x < rows1;x++){
+          result+="<tr>";
+          for(var y=0;y < cols1;y++){
+            result+="<td > <input type='text' id='M1"+x+"_"+y+"' /></td>";
+          }
+          result+="</tr>";
+        }
+        result+="</table>";
+        result+="<h1>Matrix 2</h1><table>";
+        for(var x=0;x<rows2;x++){
+          result+="<tr>";
+          for(var y=0;y<cols2;y++){
+            result+="<td > <input type='text' id='M2"+x+"_"+y+"' /></td>";
+          }
+          result+="</tr>";
+        }
+        result+="</table><button onclick='multiply()'>Multiply</button>";
+        divM.innerHTML=result;
+        return true;
+      }
+      divM.innerHTML="<p>insert valid number of cols and rows</p>";
+    }
+
+    function multiply(){
+      cols1 = document.getElementById("cols1").value;
+      cols2 = document.getElementById("cols2").value;
+      rows1 = document.getElementById("rows1").value;
+      rows2 = document.getElementById("rows2").value;
+      divM = document.getElementById("matrices");
+      m1 = new Matrix(Number(rows1),Number(cols1));
+      m2 = new Matrix(Number(rows2),Number(cols2));
+      m1.fill()
+      m2.fill()
+      var result = "<h1>Product</h1><table>";
+      for(var x=0;x < rows1;x++){
+        for(var y=0;y < cols1;y++){
+          m1.fillPos(
+            x,y,Number(document.getElementById("M1"+x+"_"+y+"").value)
+          );
+        }
+      }
+      for(var x=0;x < rows2;x++){
+        for(var y=0;y < cols2;y++){
+          m2.fillPos(
+            x,y,Number(document.getElementById("M2"+x+"_"+y+"").value)
+          );
+        }
+      }
+      //console.log(m1.getMatrix());
+      //console.log(m2.getMatrix());
+      mr = new Matrix(Number(rows1),Number(cols2));
+      mr.fill();
+      var sum =0;
+      for (var j=0;j < cols2;j++){
+
+        for(var x=0;x < rows1;x++){
+          sum =0;
+          for(var y=0;y < cols1;y++){
+           sum+=m1.getPos(x,y)*m2.getPos(y,j);
+          }
+          mr.fillPos(x,j,Number(sum));
+
+        }
+
+      }
+      //console.log(mr.getMatrix());
+
+      for(var x=0;x < rows1;x++){
+        result+="<tr>"
+        for(var y=0;y < cols2;y++){
+          result+="<td>"+mr.getPos(x,y)+"</td>";
+        }
+        result+="</tr>";
+      }
+      result += "</table>";
+      divM.innerHTML=result;
+    }
+  </script>
+  <title>Multiplication</title>
+</head>
+<body>
+  <h1>Multiplication</h1>
+  <p>
+    size of matrix1:
+    cols <input type="text" id="cols1">,
+    rows <input type="text" id="rows1">
+  </p>
+  <p>
+    size of matrix2:
+    cols <input type="text" id="cols2">,
+    rows <input type="text" id="rows2">
+  </p>
+  <button type="button" name="button" onclick="getMatrices()">OK</button>
+  <div id="matrices">
+
+  </div>
+</body>
+</html>
