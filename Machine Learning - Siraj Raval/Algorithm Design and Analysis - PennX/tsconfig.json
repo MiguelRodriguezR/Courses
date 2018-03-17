@@ -1,0 +1,9 @@
+{
+  "compileOnSave":true,
+  "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": false,
+        "module":"es6",
+        "moduleResolution":"Classic"
+    }
+}
