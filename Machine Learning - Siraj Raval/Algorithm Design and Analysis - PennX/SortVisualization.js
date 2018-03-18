@@ -129,9 +129,11 @@ class VisualVector {
             }
         }
         while (leftArr.length) {
+            vectorV.addStep("compare", sortedArr, leftArr[0], rightArr[0]);
             sortedArr.push(leftArr.shift());
         }
         while (rightArr.length) {
+            vectorV.addStep("compare", sortedArr, leftArr[0], rightArr[0]);
             sortedArr.push(rightArr.shift());
         }
         return sortedArr;
