@@ -1,44 +1,4 @@
 var vectorV;
-
-
-// function merge(leftArr, rightArr) {
-//   var sortedArr = [];
-//
-//   while (leftArr.length && rightArr.length) {
-//
-//     if (leftArr[0] <= rightArr[0]) {
-//       sortedArr.push(leftArr[0]);
-//       leftArr = leftArr.slice(1)
-//      }else {
-//        sortedArr.push(rightArr[0]);
-//        rightArr = rightArr.slice(1)
-//       }
-//   }
-//   while (leftArr.length){
-//     sortedArr.push(leftArr.shift());
-//   }
-//   while (rightArr.length){
-//     sortedArr.push(rightArr.shift());
-//   }
-//
-//   return array = sortedArr;
-// }
-
-
-// function mergeSort(arr) {
-//   //await sleep(0);
-//   graph(array);
-//   if (arr.length < 2) {
-//     return arr; }
-//   else {
-//     var midpoint = parseInt(arr.length / 2);
-//     var leftArr   = arr.slice(0, midpoint);
-//     var rightArr  = arr.slice(midpoint, arr.length);
-//     return merge(mergeSort(leftArr), mergeSort(rightArr));
-//   }
-// }
-
-
 class VisualVector{
 
   vector:Array<number>;
@@ -146,6 +106,45 @@ class VisualVector{
       this._run();
     }
 
+    public mergeSortr(){
+      this.vector = this.mergeSort(this.vector);
+      this._run();
+    }
+
+    public mergeSort(arr:Array<number>){
+        if (arr.length < 2) {
+          return arr; }
+        else {
+          var midpoint = Math.floor(arr.length/2);
+          var leftArr   = arr.slice(0, midpoint);
+          var rightArr  = arr.slice(midpoint, arr.length);
+          return this.merge(this.mergeSort(leftArr), this.mergeSort(rightArr));
+        }
+    }
+
+    public merge(leftArr, rightArr) {
+       var sortedArr = [];
+
+       while (leftArr.length && rightArr.length) {
+         vectorV.addStep("compare",sortedArr,leftArr[0],rightArr[0]);
+         if (leftArr[0] <= rightArr[0]) {
+           sortedArr.push(leftArr[0]);
+           leftArr = leftArr.slice(1)
+          }else {
+           sortedArr.push(rightArr[0]);
+           rightArr = rightArr.slice(1)
+          }
+      }
+      while (leftArr.length){
+        sortedArr.push( leftArr.shift());
+      }
+      while (rightArr.length){
+        sortedArr.push(rightArr.shift());  
+      }
+
+      return sortedArr;
+    }
+
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -168,7 +167,7 @@ function sort() {
     vectorV.bubbleSort();
   }
   else if(value == "2"){
-    //mergeSort(array);
+    vectorV.mergeSortr();
   }
 }
 
