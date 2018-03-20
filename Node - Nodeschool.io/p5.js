@@ -1,11 +1,20 @@
 var fs = require('fs');
-fs.readFile(process.argv[2],(err,data)=>{
-  console.log(data.toString().split('\n').length-1);
+const path = require('path');
+fs.readdir(process.argv[2],(err,data)=>{
+  if(err)
+    console.log(err);
+  data.forEach((c,i,a)=>{
+    if(path.extname(c)=="."+process.argv[3])
+      console.log(c);
+  })
 });
 // ACTUAL                                 EXPECTED
 // ────────────────────────────────────────────────────────────────────────────────
 //
-// "49"                                ==    "49"
+// "CHANGELOG.md"                      ==    "CHANGELOG.md"
+// "LICENCE.md"                        ==    "LICENCE.md"
+// "README.md"                         ==    "README.md"
 // ""                                  ==    ""
+//
 //
 // ────────────────────────────────────────────────────────────────────────────────
